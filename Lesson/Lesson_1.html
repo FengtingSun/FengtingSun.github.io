@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson 1 Data profiling: finding metadata</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5,h6",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">eLearning Resource</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Profiling Lesson
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Lesson_1.html">Lesson 1 Data profiling: finding metadata</a>
+    </li>
+    <li>
+      <a href="Lesson_2.html">Lesson 2 Profiling tasks</a>
+    </li>
+    <li>
+      <a href="Lesson_3.html">Lesson 3 Single-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_4.html">Lesson 4 Multi-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_5.html">Lesson 5 Dependency detection</a>
+    </li>
+    <li>
+      <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
+    </li>
+    <li>
+      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Self-Test
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Self-Test_1.html">Lesson 1 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_2.html">Lesson 2 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_3.html">Lesson 3 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_4.html">Lesson 4 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_5.html">Lesson 5 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_6.html">Lesson 6 Test</a>
+    </li>
+    <li class="dropdown-header">Lesson 7 Test</li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson 1 Data profiling: finding metadata</h1>
+
+</div>
+
+
+<hr />
+<p>In Lesson 1 we provides the basic explanation of data profiling as well as three existing challenges and its solutions.</p>
+<div id="definition-of-data-profiling" class="section level3">
+<h3>1. Definition of data profiling</h3>
+<p>The process of <strong>metadata discovery</strong> is called data profiling. It encompasses a vast array of methods to examine datasets and produce metadata. It is an important and frequent activity of any IT professional and researcher and is necessary for various use-cases. It is also defined by Johnson: “Data profiling refers to the activity of creating small but informative summaries of a database”<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+</div>
+<div id="three-challenges-of-data-profiling" class="section level3">
+<h3>2. Three challenges of data profiling</h3>
+<p>In the process of application data profiling meets the challenges and they can mainly be divided into three parts:</p>
+<div id="management-the-input" class="section level5">
+<h5>1). Management the input</h5>
+<p>The first challenge is management the input. It addresses the problem of specifying the expected outcome, i.e., determining which profiling tasks to execute on which parts of the data.</p>
+</div>
+<div id="perform-the-computation" class="section level5">
+<h5>2). Perform the computation</h5>
+<p>The second challenge perform the computation is most important. The computational complexity of data profiling algorithms depends on the number or rows, with a sort being a typical operation, but also on the number of columns.</p>
+</div>
+<div id="manage-the-output" class="section level5">
+<h5>3). Manage the output</h5>
+<p>Manage the output is the last and the most difficult one. Data profiling results can be interpreted from this challenge. The need of interpretation is because discovered metadata such as primary key and foreign key, cannot be used to derive semantic properties directly.</p>
+</div>
+</div>
+<div id="solution-of-three-challenges" class="section level3">
+<h3>3. Solution of three challenges</h3>
+<p>Three challenges can be solved by using several tools and algorithms. For the first one, since data profiling tasks can be expressed as SQL queries, rely on capabilities of the underlying DBMS would be best solution. The challenge of perform the computation can be solved by developing innovative way to handle the individual challenges(e.g. using indexing schemes, parallel processing, and reusing intermediate result). And finally, delivering only approximates results for various profiling tasks can provides answer to the third challenge.</p>
+</div>
+<div id="use-cases-for-data-profiling" class="section level3">
+<h3>4. Use-cases for data profiling</h3>
+<p>There are two parts of data profiling use-cases: traditional use-cases and domain-specific use-cases. The traditional one consists of data exploration, data cleansing/data quality and data integration. The domain-specific one includes scientific data management and big data analytics.</p>
+<div id="traditional-use-cases" class="section level5">
+<h5>1). Traditional use-cases</h5>
+<ol style="list-style-type: lower-alpha">
+<li><p>Data exploration<br />
+When user trying to analyze data, data exploration is always the first step. It typically involves summarizing the main feature of a dataset. It is commonly conducted using commercial tools such as <a href="Lesson_6.html">DQ Analyzer from Attacama</a>.</p></li>
+<li><p>Data cleansing/data quality<br />
+Data cleansing is the process of detecting and correcting data in database that is incorrect, incomplete, improperly formatted, or duplicated. Most of tools discussed in <a href="Lesson_6.html">Lesson 6</a> are part of data cleansing. IBM, Microsoft and Oracle are main vendors in providing data cleansing tools.</p></li>
+<li><p>Data integration<br />
+Data integration is the process of combining data from many different sources into an application. This process becomes significant in a variety of situations, which include both commercial and scientific domains. <a href="Lesson_6.html">InfoSphere Information Analyzer from IBM</a> is the tool that focus on data integration.</p></li>
+</ol>
+</div>
+<div id="domain-specific-use-cases" class="section level5">
+<h5>2). Domain-specific use-cases</h5>
+<ol style="list-style-type: lower-alpha">
+<li><p>Scientific data management Scientific data management is the process of helping manage data in more efficient and effective method. From Abedjan’paper described that it is necessary and useful to profile the data with scientific data management method and then devise an adequate schema when importing raw data.</p></li>
+<li><p>Big data analytics Because of high volume, high velocity and high variety of big data, they cannot be managed with traditional techniques. Thus data profiling provides new use-cases big data analytics. Big data analytics is the process of examining large data sets to uncover useful information such as hidden patterns and unknown correlations.</p></li>
+</ol>
+<!-- ### 3. Summary -->
+<!-- In summary, section 1 introduces the basic explanation of data profiling as well as three existing challenges and its solutions.  And section 2 outlines two type of use-cases: traditional use-cases and domain-specific use-cases.  The [next lesson](Lesson_2.html) will present a classification of data profiling tasks, which is divided into single column and multiple columns.  It also includes dependencies that describes the relationship between two columns. -->
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Johnson,T.:Encyclopedia ofDatabase Systems, chapterData Profiling.Springer, Heidelberg (2009)<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

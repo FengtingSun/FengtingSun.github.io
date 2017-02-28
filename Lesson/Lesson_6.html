@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson 6 Profiling tools</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5,h6",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">eLearning Resource</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Profiling Lesson
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Lesson_1.html">Lesson 1 Data profiling: finding metadata</a>
+    </li>
+    <li>
+      <a href="Lesson_2.html">Lesson 2 Profiling tasks</a>
+    </li>
+    <li>
+      <a href="Lesson_3.html">Lesson 3 Single-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_4.html">Lesson 4 Multi-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_5.html">Lesson 5 Dependency detection</a>
+    </li>
+    <li>
+      <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
+    </li>
+    <li>
+      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Self-Test
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Self-Test_1.html">Lesson 1 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_2.html">Lesson 2 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_3.html">Lesson 3 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_4.html">Lesson 4 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_5.html">Lesson 5 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_6.html">Lesson 6 Test</a>
+    </li>
+    <li class="dropdown-header">Lesson 7 Test</li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson 6 Profiling tools</h1>
+
+</div>
+
+
+<hr />
+<div id="profiling-tools" class="section level3">
+<h3>1. Profiling Tools</h3>
+<p>This lesson introduces research tools, which were created in the context of a research project, and commercial tools with profiling capabilities.</p>
+<div id="definition-of-profiling-tools" class="section level5">
+<h5>1). Definition of profiling tools</h5>
+<p>Whenever data are too voluminous to fit on a screen or a sheet of paper, data profiling is performed. It provides a column similarity functionality that finds columns whose value or n-gram distributions are similar. The aim of profiling tools is to allow a more powerful and integrated approach data profiling.</p>
+</div>
+<div id="disadvantage-of-tools" class="section level5">
+<h5>2). Disadvantage of tools</h5>
+<p>Profiling tools also have disadvanteges in usability, scalability, efficiency and functionality. For usability it is complex to configure and results are difficult to interpret. For scalability it is based on Main-memory which would limit the performance. And the uncertain using time could influence the efficiency of tasks. The last one functionality may be restricted to simplest tasks and individual columns or small column sets.</p>
+</div>
+</div>
+<div id="research-tools" class="section level3">
+<h3>2. Research Tools</h3>
+<p>In the research literature, data profiling tools are often embedded in data cleaning systems.</p>
+<div class="figure">
+<img src="https://github.com/FengtingSun/Lesson_5_Dependency_detection/blob/materials/Researchtoolswith%20data%20profiling%20capabilities.png?raw=true" alt="Figure 3. Research tools" />
+<p class="caption">Figure 3. Research tools</p>
+</div>
+</div>
+<div id="commercial-tools" class="section level3">
+<h3>3. Commercial Tools</h3>
+<p>Data profiling is such an important capability for many data management tasks, there are various commercial data profiling applications. Plenty of industry leaders such as IBM, Microsoft and Oracle provides different type of product in order to meet the needs of commercial.</p>
+<div id="pros-and-cons-of-dbms" class="section level5">
+<h5>1). Pros and Cons of DBMS</h5>
+<ul>
+<li>Pro: Every database management system collects and maintains base statistics about the tables it manages.</li>
+<li>Con: DBMS do not readily expose those metadata, the metadata are not always up-to-date and sometimes based only on samples, and their scope is usually limited to simple counts and cardinalities.</li>
+</ul>
+<div class="figure">
+<img src="https://github.com/FengtingSun/Lesson_5_Dependency_detection/blob/materials/Commercial%20data%20profiling%20tools:components%20with%20their%20primary%20capabilities%20and%20application%20areas.png?raw=true" alt="Figure 4. Commercial data profiling tools/components with their primary capabilities and application areas" />
+<p class="caption">Figure 4. Commercial data profiling tools/components with their primary capabilities and application areas</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

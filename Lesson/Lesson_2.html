@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson 2 Profiling tasks</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5,h6",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">eLearning Resource</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Profiling Lesson
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Lesson_1.html">Lesson 1 Data profiling: finding metadata</a>
+    </li>
+    <li>
+      <a href="Lesson_2.html">Lesson 2 Profiling tasks</a>
+    </li>
+    <li>
+      <a href="Lesson_3.html">Lesson 3 Single-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_4.html">Lesson 4 Multi-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_5.html">Lesson 5 Dependency detection</a>
+    </li>
+    <li>
+      <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
+    </li>
+    <li>
+      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Self-Test
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Self-Test_1.html">Lesson 1 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_2.html">Lesson 2 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_3.html">Lesson 3 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_4.html">Lesson 4 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_5.html">Lesson 5 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_6.html">Lesson 6 Test</a>
+    </li>
+    <li class="dropdown-header">Lesson 7 Test</li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson 2 Profiling tasks</h1>
+
+</div>
+
+
+<hr />
+<p>This lesson presents a classification of data profiling tasks which includes single-column profiling, multi-column profiling and dependency detection.</p>
+<div id="classification-of-profiling-tasks" class="section level3">
+<h3>1. Classification of profiling tasks</h3>
+<p>The data profiling tasks are classified accroding to dimensional complexity. The analysis of values in a single column is called <strong>single column profiling</strong>, and <strong>multi-column profiling</strong> is the set of activities that can be applied to a single column but allows for the analysis of inter-value dependencies across columns.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Figure 1 shows the categories in the classification. <a href="Lesson_3.html">Lesson 3</a> and <a href="Lesson_4.html">Lesson 4</a> describes single-column and multiple-column analysis in more detail respectively.</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/FengtingSun/Lesson_5_Dependency_detection/materials/classification%20of%20data%20profiling%20tasks.png" alt="Figure 1. A classification of traditional data profiling tasks" />
+<p class="caption">Figure 1. A classification of traditional data profiling tasks</p>
+</div>
+<div id="single-column-profiling" class="section level5">
+<h5>1). Single-column profiling</h5>
+<p>The analysis of values in a single column is called single column profiling, it includes cardinalities, patterns &amp; data types, value distributions and domain Classification.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><a href="Lesson_3.html#1_cardinalities">Cardinalities</a><br />
+Cardinalities of values in a column are the most basic form of metadata. It refers to the uniqueness of data values contained in a column and the relationship of tables.</p></li>
+<li><p><a href="Lesson_3.html#3_types,_patterns_and_domain">Types, patterns and domain</a><br />
+Types, patterns and domain are important category in data profiling. Types of data includes basic type and data types. Data patterns refers to histogram of value patterns, and data domain refers to all the values which a data element may contain.</p></li>
+<li><p><a href="Lesson_3.html#2_value_distribution">Value Distributions</a><br />
+Value distributions or cardinalities of groups of values can provide more detailed information based on cardinalities. It can be used to detect whether data follows some well-known distribution.</p></li>
+</ol>
+</div>
+<div id="multi-column-profiling" class="section level5">
+<h5>2). Multi-column profiling</h5>
+<p>Multi-column profiling is the set of activities that can be applied to a single column but allows for the analysis of inter-value dependencies across columns.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><a href="Lesson_4.html#1_correlations_and_association_rules">Correlations &amp; association rules</a><br />
+Correlation analysis reveals related numeric columns, and association rules are statements that help uncover relationships between seemingly unrelated data.</p></li>
+<li><p><a href="Lesson_4.html#2_clustering_and_outlier_detection">Clusters &amp; outliers</a><br />
+Cluster analysis can identify groups of similar records in a table, while outliers may indicate data quality problems.</p></li>
+<li><p><a href="Lesson_4.html#3_summaries_and_sketches">Summaries &amp; sketches</a><br />
+Creating summaries or sketches is another way to describe data. This can be done by sampling or hashing data values to a smaller domain.</p></li>
+</ol>
+</div>
+</div>
+<div id="dependency-detection" class="section level3">
+<h3>2. Dependency detection</h3>
+<ol style="list-style-type: lower-alpha">
+<li><a href="Lesson_5.html#1_unique_column_combinations_and_keys">Uniqueness</a><br />
+Uniqueness refers to the unique value in unique column. It consists of four definition, in this definitions R and S denote relational schemata, with r and s denoting instances of R and S respectively.<br />
+</li>
+<li>Inclusion dependencies<br />
+As one fo dependencies, inclusion dependencies(IND) support an essential semantics of the standard relational data model.</li>
+<li><a href="Lesson_5.html#2_function_dependencies">Functional dependencies</a><br />
+There are two types in functional dependencies, Column-based algorithms and Row-based algorithms.</li>
+</ol>
+<!-- * Conditional dependencies  -->
+<!-- * Partial dependencies -->
+<!-- * Approximate dependencies  -->
+</div>
+<div id="data-profiling-vs-data-mining" class="section level3">
+<h3>3. Data Profiling VS Data Mining</h3>
+<p>In section 3 we are going to find out the relationship between data profiling and data mining.</p>
+<div id="different-analysis-object" class="section level5">
+<h5>1). Different analysis object</h5>
+<p>Distinction by the object of analysis: instance VS schema or columns VS rows. From Abedjan’s paper, data profiling focuses on the instance analysis of individual attributes. Data mining helps discover specific data patterns in large datasets.</p>
+</div>
+<div id="different-task-goal-or-management" class="section level5">
+<h5>2). Different task goal or management</h5>
+<p>Distinction by the goal of the task: description of existing data VS new insights beyond existing data. Data profiling gathers technical metadata to support data management. While data mining and data analytics discovers non-obvious results to support business management</p>
+</div>
+<div id="have-different-results" class="section level5">
+<h5>3). Have different results</h5>
+<p>Data profiling results: information about columns and column sets Data mining results: information about rows or row sets</p>
+<!-- ### 4. Summary -->
+<!-- Any task can be useful for any use-case, depending on the context, the properties of the data at hand. -->
+<!-- Fig 2. -->
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Abedjan, Z., Golab, L. and Naumann, F., 2016, May. Data profiling. In Data Engineering (ICDE), 2016 IEEE 32nd International Conference on (pp. 1432-1435)<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

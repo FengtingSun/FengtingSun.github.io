@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson 4 Multi-column analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5,h6",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">eLearning Resource</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Profiling Lesson
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Lesson_1.html">Lesson 1 Data profiling: finding metadata</a>
+    </li>
+    <li>
+      <a href="Lesson_2.html">Lesson 2 Profiling tasks</a>
+    </li>
+    <li>
+      <a href="Lesson_3.html">Lesson 3 Single-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_4.html">Lesson 4 Multi-column analysis</a>
+    </li>
+    <li>
+      <a href="Lesson_5.html">Lesson 5 Dependency detection</a>
+    </li>
+    <li>
+      <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
+    </li>
+    <li>
+      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Self-Test
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Self-Test_1.html">Lesson 1 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_2.html">Lesson 2 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_3.html">Lesson 3 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_4.html">Lesson 4 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_5.html">Lesson 5 Test</a>
+    </li>
+    <li>
+      <a href="Self-Test_6.html">Lesson 6 Test</a>
+    </li>
+    <li class="dropdown-header">Lesson 7 Test</li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson 4 Multi-column analysis</h1>
+
+</div>
+
+
+<hr />
+<p>Profiling tasks over a single column can be generalized to projections of multiple columns. In this lesson we introduce the categories in multi-column profiling. It also plays an important role in data cleansing, e.g., in assessing and explaining data glitches, which often occur in column combinations.</p>
+<div id="correlations-and-association-rules" class="section level3">
+<h3>1. Correlations and association rules</h3>
+<div id="correlations-rules" class="section level5">
+<h5>1). Correlations rules</h5>
+<p>Correlation analysis reveals related numeric columns. A straightforward way to do this is to compute pairwise correlations among all pairs of columns. In addition to column-level correlations, value-level associations may provide useful data profiling information.</p>
+</div>
+<div id="association-rules" class="section level5">
+<h5>2). Association rules</h5>
+<p>Association rules are statements that help uncover relationships between seemingly unrelated data in a relational database or other information repository. For example if a customer buys bread, then he is likely to buy butter.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Algorithm for generating association rules</li>
+</ol>
+<ul>
+<li>Step 1: Discover all frequent itemsets<br />
+The rule of discover could be observe those whose frequencies in the dataset exceed some threshold.<br />
+</li>
+<li>Step 2: Generate association rules<br />
+For example if the frequency of itemset {bread, butter} is 800, the frequency of itemset {bread} is 1000, then the confidence of the association rule {bread} –&gt; {butter} is 0.8. Which means if customer buy the bread then it is 80% chance for him to buy butter.</li>
+</ul>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Efficient method of discover frequent itemsets<br />
+The method of discovering frequent itemsets in above step is easy to understand, however it needs a lot computation time. For efficiently discovering frequent patterns the algorithms Apriori, Eclat and FP-Growth are used. FP-Growth will be covered in this lesson, and we will discuss Apriori algorithm in <a href="Lesson_5.html">Lesson 5</a>.</li>
+</ol>
+</div>
+<div id="fp-growth-algorithmref" class="section level5">
+<h5>3). FP-growth algorithm<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h5>
+<ol style="list-style-type: lower-alpha">
+<li><p>What is FP-growth algorithm?<br />
+FP-growth stands for <strong>frequent pattern growth</strong>. It is a scalable technique for mining frequent pattern in database.</p></li>
+<li>How does it work?<br />
+FP-growth improves Apriori algorithm to a big extent. Only “two scan” to the database is needed:<br />
+</li>
+</ol>
+<ul>
+<li>Step 1: Build a compact data structure called the FP-tree</li>
+<li>Step 2: Extracts frequent item sets directly from the FP-tree</li>
+</ul>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/FPG_FIG_01.jpg" alt="Figure 1: An example of an FP-tree from" />
+<p class="caption">Figure 1: An example of an FP-tree from</p>
+</div>
+</div>
+</div>
+<div id="clustering-and-outlier-detection" class="section level3">
+<h3>2. Clustering and outlier detection</h3>
+<p>In multiple columns, one of useful method to profile task is segment the records into same group. From Abedjan’s paper, cluster analysis can identify groups of similar records in a table, while outliers may indicate data quality problems.</p>
+</div>
+<div id="summaries-and-sketches" class="section level3">
+<h3>3. Summaries and sketches</h3>
+<p>Creating summaries or sketches is another way to describe data. This can be done by sampling or hashing data values to a smaller domain. Sketches have been widely applied to answering approximate queries, data stream processing and estimating join sizes.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Han, J., Pei, J., Yin, Y.: Mining frequent patterns without candidate generation. SIGMOD Rec. (2000)<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
