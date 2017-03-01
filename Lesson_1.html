@@ -304,9 +304,6 @@ div.tocify {
     <li>
       <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
     </li>
-    <li>
-      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -334,7 +331,6 @@ div.tocify {
     <li>
       <a href="Self-Test_6.html">Lesson 6 Test</a>
     </li>
-    <li class="dropdown-header">Lesson 7 Test</li>
   </ul>
 </li>
 <li>
@@ -358,17 +354,20 @@ div.tocify {
 
 
 <hr />
-<p>In Lesson 1 we provides the basic explanation of data profiling as well as three existing challenges and its solutions.</p>
 <div id="definition-of-data-profiling" class="section level3">
 <h3>1. Definition of data profiling</h3>
-<p>The process of <strong>metadata discovery</strong> is called data profiling. It encompasses a vast array of methods to examine datasets and produce metadata. It is an important and frequent activity of any IT professional and researcher and is necessary for various use-cases. It is also defined by Johnson: “Data profiling refers to the activity of creating small but informative summaries of a database”<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>The process of <strong>metadata discovery</strong> is called data profiling. It encompasses a vast array of methods to examine datasets and produce metadata. It is an important and frequent activity of any IT professional and researcher and is necessary for various use-cases. It is also defined by Johnson: <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<blockquote>
+<p>“Data profiling refers to the activity of creating small but informative summaries of a database”</p>
+</blockquote>
+<p><span style="color:white">blank</span></p>
 </div>
 <div id="three-challenges-of-data-profiling" class="section level3">
 <h3>2. Three challenges of data profiling</h3>
 <p>In the process of application data profiling meets the challenges and they can mainly be divided into three parts:</p>
 <div id="management-the-input" class="section level5">
 <h5>1). Management the input</h5>
-<p>The first challenge is management the input. It addresses the problem of specifying the expected outcome, i.e., determining which profiling tasks to execute on which parts of the data.</p>
+<p>The first challenge is management the input. It addresses the problem of specifying the expected outcome. It is usually be used to determine which profiling tasks to execute on which parts of the data.</p>
 </div>
 <div id="perform-the-computation" class="section level5">
 <h5>2). Perform the computation</h5>
@@ -377,11 +376,39 @@ div.tocify {
 <div id="manage-the-output" class="section level5">
 <h5>3). Manage the output</h5>
 <p>Manage the output is the last and the most difficult one. Data profiling results can be interpreted from this challenge. The need of interpretation is because discovered metadata such as primary key and foreign key, cannot be used to derive semantic properties directly.</p>
+<p><span style="color:white">blank</span></p>
 </div>
 </div>
 <div id="solution-of-three-challenges" class="section level3">
 <h3>3. Solution of three challenges</h3>
-<p>Three challenges can be solved by using several tools and algorithms. For the first one, since data profiling tasks can be expressed as SQL queries, rely on capabilities of the underlying DBMS would be best solution. The challenge of perform the computation can be solved by developing innovative way to handle the individual challenges(e.g. using indexing schemes, parallel processing, and reusing intermediate result). And finally, delivering only approximates results for various profiling tasks can provides answer to the third challenge.</p>
+<p>Three challenges can be solved by using several tools and algorithms. Abedjian solves the challenges by using different method:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<blockquote>
+<p>Many rely on the capabilities of the underlying DBMS, as many profiling tasks can be expressed as SQL queries. Others have developed innovative ways to handle the individual challenges.</p>
+</blockquote>
+<p>To be specific, three challenges have many solutions: expressed as SQL queries, use developed innovative ways and deliver approximate results.</p>
+<div id="expressed-as-sql-queries" class="section level5">
+<h5>1). Expressed as SQL queries</h5>
+<p>Since data profiling tasks can be expressed as SQL queries which allow the user to describe desired data. Here are some basic syntax:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong><code>FROM</code> clause</strong><br />
+It indicates the table(s) to retrieve data from</p></li>
+<li><p><strong><code>WHERE</code> clause</strong><br />
+It includes a comparison predicate, which restricts the rows returned by the query</p></li>
+</ol>
+</div>
+<div id="use-developed-innovative-ways" class="section level5">
+<h5>2). Use developed innovative ways</h5>
+<p>The challenge of perform the computation can be solved by developing innovative way to handle the individual challenges(e.g. using indexing schemes, parallel processing, and reusing intermediate result).</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Parallel processing</strong><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a><br />
+It is the processing of program instructions by dividing them among multiple processors with the objective of running a program in less time. In simple terms, parallel processing refers to run multiple program at a time.</li>
+</ol>
+</div>
+<div id="deliver-approximate-results" class="section level5">
+<h5>3). Deliver approximate results</h5>
+<p>Delivering only approximates results for various profiling tasks, for example profiling samples from a set of dataset.</p>
+<p><span style="color:white">blank</span></p>
+</div>
 </div>
 <div id="use-cases-for-data-profiling" class="section level3">
 <h3>4. Use-cases for data profiling</h3>
@@ -389,28 +416,36 @@ div.tocify {
 <div id="traditional-use-cases" class="section level5">
 <h5>1). Traditional use-cases</h5>
 <ol style="list-style-type: lower-alpha">
-<li><p>Data exploration<br />
+<li><p><strong>Data exploration</strong><br />
 When user trying to analyze data, data exploration is always the first step. It typically involves summarizing the main feature of a dataset. It is commonly conducted using commercial tools such as <a href="Lesson_6.html">DQ Analyzer from Attacama</a>.</p></li>
-<li><p>Data cleansing/data quality<br />
+<li><p><strong>Data cleansing/data quality</strong><br />
 Data cleansing is the process of detecting and correcting data in database that is incorrect, incomplete, improperly formatted, or duplicated. Most of tools discussed in <a href="Lesson_6.html">Lesson 6</a> are part of data cleansing. IBM, Microsoft and Oracle are main vendors in providing data cleansing tools.</p></li>
-<li><p>Data integration<br />
+<li><p><strong>Data integration</strong><br />
 Data integration is the process of combining data from many different sources into an application. This process becomes significant in a variety of situations, which include both commercial and scientific domains. <a href="Lesson_6.html">InfoSphere Information Analyzer from IBM</a> is the tool that focus on data integration.</p></li>
 </ol>
 </div>
 <div id="domain-specific-use-cases" class="section level5">
 <h5>2). Domain-specific use-cases</h5>
 <ol style="list-style-type: lower-alpha">
-<li><p>Scientific data management Scientific data management is the process of helping manage data in more efficient and effective method. From Abedjan’paper described that it is necessary and useful to profile the data with scientific data management method and then devise an adequate schema when importing raw data.</p></li>
-<li><p>Big data analytics Because of high volume, high velocity and high variety of big data, they cannot be managed with traditional techniques. Thus data profiling provides new use-cases big data analytics. Big data analytics is the process of examining large data sets to uncover useful information such as hidden patterns and unknown correlations.</p></li>
+<li><p><strong>Scientific data management</strong><br />
+Scientific data management is the process of helping manage data in more efficient and effective method. From Abedjan’paper described that it is necessary and useful to profile the data with scientific data management method and then devise an adequate schema when importing raw data.</p></li>
+<li><p><strong>Big data analytics</strong><br />
+Because of high volume, high velocity and high variety of big data, they cannot be managed with traditional techniques. Thus data profiling provides new use-cases big data analytics. Big data analytics is the process of examining large data sets to uncover useful information such as hidden patterns and unknown correlations.</p></li>
 </ol>
-<!-- ### 3. Summary -->
-<!-- In summary, section 1 introduces the basic explanation of data profiling as well as three existing challenges and its solutions.  And section 2 outlines two type of use-cases: traditional use-cases and domain-specific use-cases.  The [next lesson](Lesson_2.html) will present a classification of data profiling tasks, which is divided into single column and multiple columns.  It also includes dependencies that describes the relationship between two columns. -->
+<p><span style="color:white">blank</span></p>
 </div>
+</div>
+<div id="summary" class="section level3">
+<h3>5. Summary</h3>
+<p>In summary, section 1 introduces the basic explanation of data profiling as well as three existing challenges and its solutions. And section 2 outlines two type of use-cases: traditional use-cases and domain-specific use-cases. The <a href="Lesson_2.html">next lesson</a> will present a classification of data profiling tasks, which is divided into single column and multiple columns. It also includes dependencies that describes the relationship between two columns.</p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Johnson,T.:Encyclopedia ofDatabase Systems, chapterData Profiling.Springer, Heidelberg (2009)<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Abedjan, Z., Golab, L. and Naumann, F., 2015. Profiling relational data: a survey. The VLDB Journal, 24(4), pp.557-581.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>En.wikipedia.org. (2017). SQL. [online] Available at: <a href="https://en.wikipedia.org/wiki/SQL#Queries" class="uri">https://en.wikipedia.org/wiki/SQL#Queries</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>En.wikipedia.org. (2017). Parallel computing. [online] Available at: <a href="https://en.wikipedia.org/wiki/Parallel_computing" class="uri">https://en.wikipedia.org/wiki/Parallel_computing</a><a href="#fnref4">↩</a></p></li>
 </ol>
 </div>
 

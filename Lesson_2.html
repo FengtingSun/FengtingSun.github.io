@@ -304,9 +304,6 @@ div.tocify {
     <li>
       <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
     </li>
-    <li>
-      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -334,7 +331,6 @@ div.tocify {
     <li>
       <a href="Self-Test_6.html">Lesson 6 Test</a>
     </li>
-    <li class="dropdown-header">Lesson 7 Test</li>
   </ul>
 </li>
 <li>
@@ -358,23 +354,24 @@ div.tocify {
 
 
 <hr />
-<p>This lesson presents a classification of data profiling tasks which includes single-column profiling, multi-column profiling and dependency detection.</p>
 <div id="classification-of-profiling-tasks" class="section level3">
 <h3>1. Classification of profiling tasks</h3>
-<p>The data profiling tasks are classified accroding to dimensional complexity. The analysis of values in a single column is called <strong>single column profiling</strong>, and <strong>multi-column profiling</strong> is the set of activities that can be applied to a single column but allows for the analysis of inter-value dependencies across columns.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Figure 1 shows the categories in the classification. <a href="Lesson_3.html">Lesson 3</a> and <a href="Lesson_4.html">Lesson 4</a> describes single-column and multiple-column analysis in more detail respectively.</p>
-<div class="figure">
-<img src="https://raw.githubusercontent.com/FengtingSun/Lesson_5_Dependency_detection/materials/classification%20of%20data%20profiling%20tasks.png" alt="Figure 1. A classification of traditional data profiling tasks" />
-<p class="caption">Figure 1. A classification of traditional data profiling tasks</p>
-</div>
+<p>The data profiling tasks are classified according to dimensional complexity. Abedjan made his own classification:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<blockquote>
+<p>The analysis of values in a single column is called <strong>single column profiling</strong>, and <strong>multi-column profiling</strong> is the set of activities that can be applied to a single column but allows for the analysis of inter-value dependencies across columns.</p>
+</blockquote>
+<p>Figure 1 shows the categories in the classification. <a href="Lesson_3.html">Lesson 3</a> and <a href="Lesson_4.html">Lesson 4</a> describes single-column and multiple-column analysis in more detail respectively.</p>
+<p><img src="https://github.com/FengtingSun/FengtingSun.github.io/blob/master/image/Lesson_2/classification%20of%20data%20profiling%20tasks.png?raw=true" width="400px" height="200px" /><br />
+<span style="color:grey">Figure 1. A classification of traditional data profiling tasks</span><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div id="single-column-profiling" class="section level5">
 <h5>1). Single-column profiling</h5>
 <p>The analysis of values in a single column is called single column profiling, it includes cardinalities, patterns &amp; data types, value distributions and domain Classification.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p><a href="Lesson_3.html#1_cardinalities">Cardinalities</a><br />
+<li><p><strong><a href="Lesson_3.html#1_cardinalities">Cardinalities</a></strong><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a><br />
 Cardinalities of values in a column are the most basic form of metadata. It refers to the uniqueness of data values contained in a column and the relationship of tables.</p></li>
-<li><p><a href="Lesson_3.html#3_types,_patterns_and_domain">Types, patterns and domain</a><br />
+<li><p><strong><a href="Lesson_3.html#3_types,_patterns_and_domain">Types, patterns and domain</a></strong><br />
 Types, patterns and domain are important category in data profiling. Types of data includes basic type and data types. Data patterns refers to histogram of value patterns, and data domain refers to all the values which a data element may contain.</p></li>
-<li><p><a href="Lesson_3.html#2_value_distribution">Value Distributions</a><br />
+<li><p><strong><a href="Lesson_3.html#2_value_distribution">Value Distributions</a></strong><br />
 Value distributions or cardinalities of groups of values can provide more detailed information based on cardinalities. It can be used to detect whether data follows some well-known distribution.</p></li>
 </ol>
 </div>
@@ -382,36 +379,44 @@ Value distributions or cardinalities of groups of values can provide more detail
 <h5>2). Multi-column profiling</h5>
 <p>Multi-column profiling is the set of activities that can be applied to a single column but allows for the analysis of inter-value dependencies across columns.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p><a href="Lesson_4.html#1_correlations_and_association_rules">Correlations &amp; association rules</a><br />
+<li><p><strong><a href="Lesson_4.html#1_correlations_and_association_rules">Correlations &amp; association rules</a></strong><br />
 Correlation analysis reveals related numeric columns, and association rules are statements that help uncover relationships between seemingly unrelated data.</p></li>
-<li><p><a href="Lesson_4.html#2_clustering_and_outlier_detection">Clusters &amp; outliers</a><br />
+<li><p><strong><a href="Lesson_4.html#2_clustering_and_outlier_detection">Clusters &amp; outliers</a></strong><br />
 Cluster analysis can identify groups of similar records in a table, while outliers may indicate data quality problems.</p></li>
-<li><p><a href="Lesson_4.html#3_summaries_and_sketches">Summaries &amp; sketches</a><br />
+<li><p><strong><a href="Lesson_4.html#3_summaries_and_sketches">Summaries &amp; sketches</a></strong><br />
 Creating summaries or sketches is another way to describe data. This can be done by sampling or hashing data values to a smaller domain.</p></li>
 </ol>
+<p><span style="color:white">blank</span></p>
 </div>
 </div>
-<div id="dependency-detection" class="section level3">
-<h3>2. Dependency detection</h3>
+<div id="dependencies" class="section level3">
+<h3>2. Dependencies</h3>
+<p>Dependencies is an important notion of data profiling topic, which will be discussed in depth in <a href="Lesson_5.html">Lesson 5</a>. Abedjan provided a simple definition for dependencies:</p>
+<blockquote>
+<p>Dependencies are metadata that describe relationships among columns.</p>
+</blockquote>
+<div id="category-of-dependencies" class="section level5">
+<h5>1). Category of dependencies</h5>
 <ol style="list-style-type: lower-alpha">
-<li><a href="Lesson_5.html#1_unique_column_combinations_and_keys">Uniqueness</a><br />
-Uniqueness refers to the unique value in unique column. It consists of four definition, in this definitions R and S denote relational schemata, with r and s denoting instances of R and S respectively.<br />
-</li>
-<li>Inclusion dependencies<br />
-As one fo dependencies, inclusion dependencies(IND) support an essential semantics of the standard relational data model.</li>
-<li><a href="Lesson_5.html#2_function_dependencies">Functional dependencies</a><br />
-There are two types in functional dependencies, Column-based algorithms and Row-based algorithms.</li>
+<li><p><strong><a href="Lesson_5.html#2_unique_column_combinations_and_keys">Uniqueness</a></strong><br />
+Uniqueness refers to the unique value in unique column. It consists of four definition, in this definitions R and S denote relational schemata, with r and s denoting instances of R and S respectively.</p></li>
+<li><p><strong>Inclusion dependencies</strong><br />
+As one of dependencies, inclusion dependencies(IND) support an essential semantics of the standard relational data model.</p></li>
+<li><p><strong><a href="Lesson_5.html#2_function_dependencies">Functional dependencies</a></strong><br />
+There are two types in functional dependencies, Column-based algorithms and Row-based algorithms.</p></li>
 </ol>
 <!-- * Conditional dependencies  -->
 <!-- * Partial dependencies -->
 <!-- * Approximate dependencies  -->
+<p><span style="color:white">blank</span></p>
+</div>
 </div>
 <div id="data-profiling-vs-data-mining" class="section level3">
 <h3>3. Data Profiling VS Data Mining</h3>
 <p>In section 3 we are going to find out the relationship between data profiling and data mining.</p>
 <div id="different-analysis-object" class="section level5">
 <h5>1). Different analysis object</h5>
-<p>Distinction by the object of analysis: instance VS schema or columns VS rows. From Abedjan’s paper, data profiling focuses on the instance analysis of individual attributes. Data mining helps discover specific data patterns in large datasets.</p>
+<p>Distinction by the object of analysis: instance VS schema or columns VS rows. From Abedjan’s paper, data profiling focuses on the instance analysis of individual attributes, and data mining helps discover specific data patterns in large datasets.</p>
 </div>
 <div id="different-task-goal-or-management" class="section level5">
 <h5>2). Different task goal or management</h5>
@@ -419,16 +424,20 @@ There are two types in functional dependencies, Column-based algorithms and Row-
 </div>
 <div id="have-different-results" class="section level5">
 <h5>3). Have different results</h5>
-<p>Data profiling results: information about columns and column sets Data mining results: information about rows or row sets</p>
-<!-- ### 4. Summary -->
-<!-- Any task can be useful for any use-case, depending on the context, the properties of the data at hand. -->
-<!-- Fig 2. -->
+<p>The results of data profiling are information about columns and column sets. While the results of data mining are information about rows or row sets</p>
+<p><span style="color:white">blank</span></p>
 </div>
+</div>
+<div id="summary" class="section level3">
+<h3>4. Summary</h3>
+<p>This lesson presents a classification of data profiling tasks which includes single-column profiling, multi-column profiling and dependency detection. However, any task can be useful for any use-case, depending on the context, the properties of the data at hand. <a href="Lesson_3.html">Lesson 3</a> will describe categories in single column in more detail.</p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Abedjan, Z., Golab, L. and Naumann, F., 2016, May. Data profiling. In Data Engineering (ICDE), 2016 IEEE 32nd International Conference on (pp. 1432-1435)<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Abedjan, Z., Golab, L. and Naumann, F., 2015. Profiling relational data: a survey. The VLDB Journal, 24(4), pp.557-581.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Techopedia.com. (2017). What is Cardinality in Databases? - Definition from Techopedia. [online] Available at: <a href="https://www.techopedia.com/definition/18/cardinality-databases" class="uri">https://www.techopedia.com/definition/18/cardinality-databases</a><a href="#fnref3">↩</a></p></li>
 </ol>
 </div>
 

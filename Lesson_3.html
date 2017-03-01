@@ -304,9 +304,6 @@ div.tocify {
     <li>
       <a href="Lesson_6.html">Lesson 6 Profiling tools</a>
     </li>
-    <li>
-      <a href="Lesson_7.html">Lesson 7 Next generation profiling</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -334,7 +331,6 @@ div.tocify {
     <li>
       <a href="Self-Test_6.html">Lesson 6 Test</a>
     </li>
-    <li class="dropdown-header">Lesson 7 Test</li>
   </ul>
 </li>
 <li>
@@ -358,14 +354,11 @@ div.tocify {
 
 
 <hr />
-<p>Now we will describe categories in single column in more detail. The following sections focus on three category: Cardinalities, Value Distribution and Types and patterns. Figure 1 is the overview of selected single-column profiling tasks.</p>
-<div class="figure">
-<img src="https://raw.githubusercontent.com/FengtingSun/Lesson_5_Dependency_detection/materials/Overviewofselected%20single-column%20profiling%20tasks.png" alt="Figure 1. Overview of selected single-column profiling tasks" />
-<p class="caption">Figure 1. Overview of selected single-column profiling tasks</p>
-</div>
 <div id="cardinalities" class="section level3">
 <h3>1. Cardinalities</h3>
-<p>Cardinalities of values in a column are the most basic form of metadata. It refers to the uniqueness of data values contained in a column and the relationship of tables.</p>
+<p>Cardinalities of values in a column are the most basic form of metadata. It refers to the uniqueness of data values contained in a column and the relationship of tables. Figure 1 is the overview of selected single-column profiling tasks, different tasks and descriptions can be found in the table.</p>
+<p><img src="https://github.com/FengtingSun/FengtingSun.github.io/blob/master/image/Lesson_3/Overviewofselected%20single-column%20profiling%20tasks.png?raw=true" width="500px" height="200px" /><br />
+<span style="color:grey">Figure 1. Overview of selected single-column profiling tasks</span><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 <div id="the-application-of-cardinalities" class="section level5">
 <h5>1). The application of cardinalities</h5>
 <p>Cardinalities can be used to determine the exact number of distinct values and is useful in query optimization which is trying to find out the most efficient way to execute a given query by considering the possible query plans.</p>
@@ -373,15 +366,16 @@ div.tocify {
 <div id="cardinalities-tasks" class="section level5">
 <h5>2). Cardinalities tasks</h5>
 <ol style="list-style-type: lower-alpha">
-<li><p>num-rows<br />
+<li><p><strong>num-rows</strong><br />
 It describes the number of rows and reflects how many entities are represented in the data, and it is relevant to data management systems.</p></li>
-<li><p>value length<br />
+<li><p><strong>value length</strong><br />
 It measures lengths of value. The length could be minimum, maximum, median and average.</p></li>
-<li><p>null values<br />
+<li><p><strong>null values</strong><br />
 Null values represents number of null values or empty cells such as empty strings. It also indicates the completeness of a column.</p></li>
-<li><p>distinct<br />
+<li><p><strong>distinct</strong><br />
 Number of distinct values is called distinct. For example if a value in a set that is not equal to another value then it is distinct value.</p></li>
 </ol>
+<p><span style="color:white">blank</span></p>
 </div>
 </div>
 <div id="value-distribution" class="section level3">
@@ -390,23 +384,20 @@ Number of distinct values is called distinct. For example if a value in a set th
 <div id="value-distribution-tasks" class="section level5">
 <h5>1). Value distribution tasks</h5>
 <ol style="list-style-type: lower-alpha">
-<li>histogram<br />
-Histogram or frequency histograms stores frequencies of values within well-defined groups. It can be used for database optimization to avoid a uniform distribution assumption and thus provide better cardinality estimations. Besides, histograms are interpretable by humans conveniently since their visual representation is easy to comprehend. Figure 2 is an example of Normal histogram and Cumulative histogram<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</li>
+<li><strong>histogram</strong><br />
+Histogram or frequency histograms stores frequencies of values within well-defined groups. It can be used for database optimization to avoid a uniform distribution assumption and thus provide better cardinality estimations. Besides, histograms are interpretable by humans conveniently since their visual representation is easy to comprehend. Figure 2 is an example of Normal histogram and Cumulative histogram<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</li>
 </ol>
-<div class="figure">
-<img src="https://raw.githubusercontent.com/FengtingSun/Lesson_5_Dependency_detection/materials/Cumulative_vs_normal_histogram.png" alt="Figure 2. Normal histogram and Cumulative histogram example" />
-<p class="caption">Figure 2. Normal histogram and Cumulative histogram example</p>
-</div>
+<p><img src="https://github.com/FengtingSun/FengtingSun.github.io/blob/master/image/Lesson_3/Cumulative_vs_normal_histogram.png?raw=true" /><br />
+<span style="color:grey">Figure 2. Normal histogram and Cumulative histogram example</span></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li><p>constancy<br />
+<li><p><strong>constancy</strong><br />
 The constancy is the frequency of most frequent value divided by number of rows or the ratio of the frequency of the most frequent value and the overall number of values.</p></li>
-<li><p>first digit<br />
-First digit or first digit distribution is based on <a href="https://en.wikipedia.org/wiki/Benford&#39;s_law">Benford’s law</a>, which stated that the leading significant digit is likely to be small in many naturally occurring collections of numbers. Figure 3 is the histogram of Benford’s law. It simply shows that the distribution of first digits. Each bar represents a digit, and the height of the bar is the percentage of numbers that start with that digit.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p></li>
+<li><p><strong>first digit</strong><br />
+First digit or first digit distribution is based on <a href="https://en.wikipedia.org/wiki/Benford&#39;s_law">Benford’s law</a>, which stated that the leading significant digit is likely to be small in many naturally occurring collections of numbers. Figure 3 is the histogram of Benford’s law. It simply shows that the distribution of first digits. Each bar represents a digit, and the height of the bar is the percentage of numbers that start with that digit.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p></li>
 </ol>
-<div class="figure">
-<img src="https://github.com/FengtingSun/Lesson_5_Dependency_detection/blob/materials/first%20digit%20law.svg.png?raw=true" alt="Figure 3. histogram of Benford’s law" />
-<p class="caption">Figure 3. histogram of Benford’s law</p>
-</div>
+<p><img src="https://github.com/FengtingSun/FengtingSun.github.io/blob/master/image/Lesson_3/first%20digit%20law.svg.png?raw=true" width="400px" height="200px"/><br />
+<span style="color:grey">Figure 3. histogram of Benford’s law</span></p>
+<p><span style="color:white">blank</span></p>
 </div>
 </div>
 <div id="types-patterns-and-domain" class="section level3">
@@ -414,28 +405,38 @@ First digit or first digit distribution is based on <a href="https://en.wikipedi
 <div id="data-type" class="section level5">
 <h5>1). Data type</h5>
 <ol style="list-style-type: lower-alpha">
-<li><p>basic type<br />
+<li><p><strong>basic type</strong><br />
 Basic type is the most common and fundamental type in profiling tasks. Generic data type includes numeric, alphabetic, alphanumeric, date, time and so on.</p></li>
-<li><p>data type<br />
+<li><p><strong>data type</strong><br />
 Data type defines what kind of value a column can contain. When classifying columns into data types, one should choose the most specific data type. For example <em>string</em> is more specific than <em>char</em> in database. It is essential to extract the maximum number of digits and decimals in order to determine the size and decimals of metadata.</p></li>
 </ol>
 </div>
 <div id="frequent-data-patterns" class="section level5">
 <h5>2). Frequent data patterns</h5>
-<p>Data patterns refers to histogram of value patterns. The goal of data patterns is to directly address this complexity, and provide solutions to common problems, often using relatively simple mechanisms<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. However, it is hard to find a good balance between generality and specificity when determine the frequent patterns. One example of data pattern in life is phone number: +dd (ddd) ddd dddd.</p>
+<p>Data patterns refers to histogram of value patterns. From Msdn.microsoft.com, the goal of frequent data patterns is described as: <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<blockquote>
+<p>The goal of data patterns is to directly address this complexity, and provide solutions to common problems, often using relatively simple mechanisms.</p>
+</blockquote>
+<p>However, it is hard to find a good balance between generality and specificity when determine the frequent patterns. One example of data pattern in life is phone number: +dd (ddd) ddd dddd.</p>
 </div>
 <div id="data-domain" class="section level5">
 <h5>3). Data domain</h5>
-<p>In data profiling data domain refers to all the values which a data element may contain<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> and is the classification of semantic domain, such as credit card and first name. Data domain is interested in general data profiling as well as in schema matching.</p>
+<p>In data profiling data domain refers to all the values which a data element may contain<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> and is the classification of semantic domain, such as credit card and first name. Data domain is interested in general data profiling as well as in schema matching.</p>
+<p><span style="color:white">blank</span></p>
 </div>
+</div>
+<div id="summary" class="section level3">
+<h3>4. Summary</h3>
+<p>Lesson 3 we discussed single column classification in depth. As three categories of single column, cardinalities, value distribution and types &amp; patterns include plenty of detailed tasks such as num-rows, histogram and basic type. In <a href="Lesson_4.html">Lesson 4</a> we will focus on multi-column profiling.</p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Histogram. (2017). [online] En.wikipedia.org. Available at: <a href="https://en.wikipedia.org/wiki/Histogram" class="uri">https://en.wikipedia.org/wiki/Histogram</a><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Benford’s law. (2017). [online] En.wikipedia.org. Available at: <a href="https://en.wikipedia.org/wiki/Benford&#39;s_law" class="uri">https://en.wikipedia.org/wiki/Benford's_law</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Data Patterns. (2017). [online] Msdn.microsoft.com. Available at: <a href="https://msdn.microsoft.com/en-us/library/ff648502.aspx" class="uri">https://msdn.microsoft.com/en-us/library/ff648502.aspx</a><a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>Loshin, D., 2001. Enterprise knowledge management: The data quality approach. Morgan Kaufmann.<a href="#fnref4">↩</a></p></li>
+<li id="fn1"><p>Abedjan, Z., Golab, L. and Naumann, F., 2015. Profiling relational data: a survey. The VLDB Journal, 24(4), pp.557-581.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Histogram. (2017). [online] En.wikipedia.org. Available at: <a href="https://en.wikipedia.org/wiki/Histogram" class="uri">https://en.wikipedia.org/wiki/Histogram</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Benford’s law. (2017). [online] En.wikipedia.org. Available at: <a href="https://en.wikipedia.org/wiki/Benford&#39;s_law" class="uri">https://en.wikipedia.org/wiki/Benford's_law</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Data Patterns. (2017). [online] Msdn.microsoft.com. Available at: <a href="https://msdn.microsoft.com/en-us/library/ff648502.aspx" class="uri">https://msdn.microsoft.com/en-us/library/ff648502.aspx</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Loshin, D., 2001. Enterprise knowledge management: The data quality approach. Morgan Kaufmann.<a href="#fnref5">↩</a></p></li>
 </ol>
 </div>
 
