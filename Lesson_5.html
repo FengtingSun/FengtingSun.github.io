@@ -274,7 +274,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">eLearning Resource</a>
+      <a class="navbar-brand" href="index.html">Data Profiling</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -283,7 +283,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Data Profiling Lesson
+    Lessons
      
     <span class="caret"></span>
   </a>
@@ -362,12 +362,12 @@ div.tocify {
 <div id="introduction-to-dependency" class="section level3">
 <h3>1. Introduction to dependency</h3>
 <p>Welcome to Lesson 5 Dependency detection! We start this lesson with an interactive table. The table enable you to filter, pagination and sort datasets. You can play with it and have a quick idea of it.</p>
-<div id="htmlwidget-bccf725f13e4d875894c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bccf725f13e4d875894c">{"x":{"filter":"none","data":[["1","2","3","4"],["Max","Eve","Eve","Max"],["Payne","Smith","Payne","Payne"],["32","24","24","24"],["1234","5432","3333","3333"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>First\u003c/th>\n      <th>Last\u003c/th>\n      <th>Age\u003c/th>\n      <th>Phone\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8735c8c1138de0df91e1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8735c8c1138de0df91e1">{"x":{"filter":"none","data":[["1","2","3","4"],["Max","Eve","Eve","Max"],["Payne","Smith","Payne","Payne"],["32","24","24","24"],["1234","5432","3333","3333"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>First\u003c/th>\n      <th>Last\u003c/th>\n      <th>Age\u003c/th>\n      <th>Phone\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 <hr />
 <p>Below is an interesting figure which is based on the previous table. The figure illustrates all possible subsets of the attributes. It is easy to understand and if we associate the figure with dependency, it will give an important notion: any dependency discovery algorithm has a worst-case exponential time complexity According to the figure you can find out two classes of heuristics: <strong>column-based approaches</strong> and <strong>row-based approaches</strong>. The two approaches can be used in different applications:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 <blockquote>
-<p>Column-based approaches work well on tables containing a very large number of rows and row-based approaches work well for wide tables.</p>
+<p>Column-based approaches work well on tables containing a very large number of rows and row-based approaches work well for wide tables(Abedjan, 2015).</p>
 </blockquote>
 <p><img src="https://github.com/FengtingSun/FengtingSun.github.io/blob/master/image/Lesson_5/Powerset_lattice.png?raw=true" width="500px" height="200px" /><br />
 <span style="color:grey">Figure 1. Power lattice for the table</span></p>
@@ -375,7 +375,7 @@ div.tocify {
 </div>
 <div id="unique-column-combinations-and-keys" class="section level3">
 <h3>2. Unique column combinations and keys</h3>
-<p>Uniqueness refers to the unique value in unique column. The author of paper <a href="http://link.springer.com/article/10.1007/s00778-015-0389-y">Profiling relational data: a survey</a> divided column combination into four parts: unique, non-unique, minimal unique and maximal non-unique.</p>
+<p>Uniqueness refers to the unique value in unique column. The paper <em>Profiling relational data: a survey</em> divided column combination into four parts: unique, non-unique, minimal unique and maximal non-unique.</p>
 <div id="definition-of-column-combination" class="section level5">
 <h5>1). Definition of column combination</h5>
 <p>Here is four definitions of column combination. R and S denote relational schemata, with r and s denoting instances of R and S respectively.</p>
@@ -398,10 +398,10 @@ Analogously, a set of columns X ⊆ R is a non-unique column combination (a “n
 <p>Column-based approach generate candidate dependencies of a certain size, validate them through scanning the whole database, and then generate a new candidate set by expanding current candidates with more columns.</p>
 <ol style="list-style-type: lower-alpha">
 <li><strong>Apriori Algorithms</strong><br />
-Apriori Algorithms is the algorithm that attempts to find some specific subsets in itemsets by using bottom up approach. From the paper of <a href="http://software.ucv.ro/~cmihaescu/ro/teaching/AIR/docs/Lab8-Apriori.pdf">“Mining Frequent Itemsets – Apriori Algorithm”</a>, the algorithm is defined as:</li>
+Apriori Algorithms is the algorithm that attempts to find some specific subsets in itemsets by using bottom up approach. From the paper of <em>Mining Frequent Itemsets – Apriori Algorithm</em><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, the algorithm is defined as:</li>
 </ol>
 <blockquote>
-<p>In computer science and data mining, Apriori is a classic algorithm for learning association rules. Apriori is designed to operate on databases containing transactions.</p>
+<p>In computer science and data mining, Apriori is a classic algorithm for learning association rules. Apriori is designed to operate on databases containing transactions(software.ucv.ro, 2017).</p>
 </blockquote>
 <p><img src="https://github.com/FengtingSun/FengtingSun.github.io/blob/master/image/Lesson_5/Apriori%20Algorithm(L).png?raw=true" width="600px" height="200px" /><br />
 <span style="color:grey">Figure 2. Apriori Algorithm</span></p>
@@ -484,22 +484,22 @@ function popup(mylink, windowname){
 <h5>1). Column-based algorithms</h5>
 <ol style="list-style-type: lower-alpha">
 <li><p><strong>TANE Algorithm:</strong><br />
-TANE is based on partitioning the set of rows with respect to their attribute values, which makes testing the validity of functional dependencies fast even for a large number of tuples.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p></li>
+TANE is based on partitioning the set of rows with respect to their attribute values, which makes testing the validity of functional dependencies fast even for a large number of tuples.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p></li>
 <li><p><strong>FUN Algorithm:</strong><br />
-FUN, is a level-wise algorithm exploring, level after level, the attribute set lattice of the input relation. Fun handles, step by step, attribute sets of increased length and, at each new level, takes benefits from the knowledge acquired at the previous iteration.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p></li>
+FUN, is a level-wise algorithm exploring, level after level, the attribute set lattice of the input relation. Fun handles, step by step, attribute sets of increased length and, at each new level, takes benefits from the knowledge acquired at the previous iteration.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p></li>
 <li><p><strong>FD_Mine Algorithm:</strong><br />
-FD_Mine takes advantage of the rich theory of FDs to guide the search for FDs. More specifically, the use of FD theory can reduce both the size of the dataset and the number of FDs to be checked by pruning redundant data and skipping the search for FDs that follow logically from the FDs already discovered. <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p></li>
+FD_Mine takes advantage of the rich theory of FDs to guide the search for FDs. More specifically, the use of FD theory can reduce both the size of the dataset and the number of FDs to be checked by pruning redundant data and skipping the search for FDs that follow logically from the FDs already discovered. <a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p></li>
 <li><p><strong>DFD Algorithm:</strong><br />
-DFD is used to discover all functional dependencies in a dataset following a depth- first traversal strategy of the attribute lattice that combines aggressive pruning and efficient result verification.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p></li>
+DFD is used to discover all functional dependencies in a dataset following a depth- first traversal strategy of the attribute lattice that combines aggressive pruning and efficient result verification.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p></li>
 </ol>
 </div>
 <div id="row-based-algorithms" class="section level5">
 <h5>2). Row-based algorithms</h5>
 <ol style="list-style-type: lower-alpha">
 <li><p><strong>Dep-Miner Algorithm:</strong><br />
-Dep-Miner a software prototype implementing a simple but effective model for the evaluation of itemsets, and in general for the evaluation of the dependencies between the variables on a domain of finite values. <a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p></li>
+Dep-Miner a software prototype implementing a simple but effective model for the evaluation of itemsets, and in general for the evaluation of the dependencies between the variables on a domain of finite values. <a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p></li>
 <li><p><strong>FastFDs Algorithm:</strong><br />
-FastFDs Algorithm search strategy for generating minimal covers of hypergraphs. FastFDs Algorithm can be used to solve search problems in Articial Intelligence.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p></li>
+FastFDs Algorithm search strategy for generating minimal covers of hypergraphs. FastFDs Algorithm can be used to solve search problems in Articial Intelligence.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p></li>
 </ol>
 <!-- ##### 3). Partial and approximate functional dependencies -->
 <!-- ##### 4). Conditional functional dependencies -->
@@ -520,12 +520,13 @@ FastFDs Algorithm search strategy for generating minimal covers of hypergraphs. 
 <hr />
 <ol>
 <li id="fn1"><p>Abedjan, Z., Golab, L. and Naumann, F., 2015. Profiling relational data: a survey. The VLDB Journal, 24(4), pp.557-581.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Huhtala, Y., Kärkkäinen, J., Porkka, P., Toivonen, H.: TANE: an efficient algorithm for discovering functional and approximate dependencies. Comput. J. (1999). Available at: <a href="https://www.lri.fr/~pierres/donn%E9es/save/these/articles/lpr-queue/huhtala99tane.pdf">https://www.lri.fr/~pierres/donn%E9es/save/these/articles/lpr-queue/huhtala99tane.pdf</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Novelli, N., Cicchetti, R.: FUN: an efficient algorithm for mining functional and embedded dependencies. In: Proceedings of the International Conference on Database Theory (ICDT) (2001). Available at: <a href="http://link.springer.com/chapter/10.1007/3-540-44503-X_13" class="uri">http://link.springer.com/chapter/10.1007/3-540-44503-X_13</a><a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>Yao, H., Hamilton, H.J.: Mining functional dependencies from data. Data Min. Knowl. Discov. (2008). Available at: <a href="http://www.cs.uregina.ca/Research/Techreports/2002-04.pdf" class="uri">http://www.cs.uregina.ca/Research/Techreports/2002-04.pdf</a><a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>Abedjan, Z., Schulze, P., Naumann, F.: DFD: efficient functional dependency discovery. In: Proceedings of the International Con- ference on Information and Knowledge Management (CIKM), (2014). Available at: <a href="https://hpi.de/fileadmin/user_upload/fachgebiete/naumann/publications/2014/DFD_CIKM2014_p949_CRC.pdf" class="uri">https://hpi.de/fileadmin/user_upload/fachgebiete/naumann/publications/2014/DFD_CIKM2014_p949_CRC.pdf</a><a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p>Abedjan, Z., Golab, L. and Naumann, F., 2015. Profiling relational data: a survey. The VLDB Journal, 24(4), pp.557-581. Available at: <a href="https://pdfs.semanticscholar.org/fc14/9091e63f179172705dfa58fea33461080441.pdf" class="uri">https://pdfs.semanticscholar.org/fc14/9091e63f179172705dfa58fea33461080441.pdf</a><a href="#fnref6">↩</a></p></li>
-<li id="fn7"><p>Wyss, C., Giannella, C. and Robertson, E., 2001, September. Fastfds: A heuristic-driven, depth-first algorithm for mining functional dependencies from relation instances extended abstract. In International Conference on Data Warehousing and Knowledge Discovery (pp. 101-110). Springer Berlin Heidelberg. Available at: <a href="http://www.cs.indiana.edu/pub/techreports/TR551.pdf" class="uri">http://www.cs.indiana.edu/pub/techreports/TR551.pdf</a><a href="#fnref7">↩</a></p></li>
+<li id="fn2"><p>Mining Frequent Itemsets – Apriori Algorithm. (2017). [online] software.ucv.ro. Available at: <a href="http://software.ucv.ro/~cmihaescu/ro/teaching/AIR/docs/Lab8-Apriori.pdf" class="uri">http://software.ucv.ro/~cmihaescu/ro/teaching/AIR/docs/Lab8-Apriori.pdf</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Huhtala, Y., Kärkkäinen, J., Porkka, P., Toivonen, H.: TANE: an efficient algorithm for discovering functional and approximate dependencies. Comput. J. (1999). Available at: <a href="https://www.lri.fr/~pierres/donn%E9es/save/these/articles/lpr-queue/huhtala99tane.pdf">https://www.lri.fr/~pierres/donn%E9es/save/these/articles/lpr-queue/huhtala99tane.pdf</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Novelli, N., Cicchetti, R.: FUN: an efficient algorithm for mining functional and embedded dependencies. In: Proceedings of the International Conference on Database Theory (ICDT) (2001). Available at: <a href="http://link.springer.com/chapter/10.1007/3-540-44503-X_13" class="uri">http://link.springer.com/chapter/10.1007/3-540-44503-X_13</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Yao, H., Hamilton, H.J.: Mining functional dependencies from data. Data Min. Knowl. Discov. (2008). Available at: <a href="http://www.cs.uregina.ca/Research/Techreports/2002-04.pdf" class="uri">http://www.cs.uregina.ca/Research/Techreports/2002-04.pdf</a><a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>Abedjan, Z., Schulze, P., Naumann, F.: DFD: efficient functional dependency discovery. In: Proceedings of the International Con- ference on Information and Knowledge Management (CIKM), (2014). Available at: <a href="https://hpi.de/fileadmin/user_upload/fachgebiete/naumann/publications/2014/DFD_CIKM2014_p949_CRC.pdf" class="uri">https://hpi.de/fileadmin/user_upload/fachgebiete/naumann/publications/2014/DFD_CIKM2014_p949_CRC.pdf</a><a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>Abedjan, Z., Golab, L. and Naumann, F., 2015. Profiling relational data: a survey. The VLDB Journal, 24(4), pp.557-581. Available at: <a href="https://pdfs.semanticscholar.org/fc14/9091e63f179172705dfa58fea33461080441.pdf" class="uri">https://pdfs.semanticscholar.org/fc14/9091e63f179172705dfa58fea33461080441.pdf</a><a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>Wyss, C., Giannella, C. and Robertson, E., 2001, September. Fastfds: A heuristic-driven, depth-first algorithm for mining functional dependencies from relation instances extended abstract. In International Conference on Data Warehousing and Knowledge Discovery (pp. 101-110). Springer Berlin Heidelberg. Available at: <a href="http://www.cs.indiana.edu/pub/techreports/TR551.pdf" class="uri">http://www.cs.indiana.edu/pub/techreports/TR551.pdf</a><a href="#fnref8">↩</a></p></li>
 </ol>
 </div>
 
