@@ -1,6 +1,9 @@
 $(document).ready(function() 
-{    $("#results").click(function() {                
-
+{    $("#results").click(function(e) {
+  
+ e.preventDefault();
+  $(this).toggleClass('active');
+  
 if (!$("input[@name=q1]:checked").val() ||            
 !$("input[@name=q2]:checked").val() ||  
 !$("input[@name=q3]:checked").val()  
