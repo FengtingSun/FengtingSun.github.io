@@ -362,8 +362,8 @@ div.tocify {
 <div id="introduction-to-dependency" class="section level3">
 <h3>1. Introduction to dependency</h3>
 <p>Welcome to Lesson 5 Dependency detection! We start this lesson with an interactive table. The table enable you to filter, pagination and sort datasets. You can play with it and have a quick idea of it.</p>
-<div id="htmlwidget-afafb3eb6da588780eeb" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-afafb3eb6da588780eeb">{"x":{"filter":"none","data":[["1","2","3","4"],["Max","Eve","Eve","Max"],["Payne","Smith","Payne","Payne"],["32","24","24","24"],["1234","5432","3333","3333"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>First\u003c/th>\n      <th>Last\u003c/th>\n      <th>Age\u003c/th>\n      <th>Phone\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3903b761290876ac6384" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3903b761290876ac6384">{"x":{"filter":"none","data":[["1","2","3","4"],["Max","Eve","Eve","Max"],["Payne","Smith","Payne","Payne"],["32","24","24","24"],["1234","5432","3333","3333"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>First\u003c/th>\n      <th>Last\u003c/th>\n      <th>Age\u003c/th>\n      <th>Phone\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 <hr />
 <p>Below is an interesting figure which is based on the previous table. The figure illustrates all possible subsets of the attributes. It is easy to understand and if we associate the figure with dependency, it will give an important notion: any dependency discovery algorithm has a worst-case exponential time complexity According to the figure you can find out two classes of heuristics: <strong>column-based approaches</strong> and <strong>row-based approaches</strong>. The two approaches can be used in different applications:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 <blockquote>
@@ -426,53 +426,6 @@ function popup(mylink, windowname){
 <button type="button" onclick="myFunction()">
 <A HREF="Apriori example(Titanic).nb.html" onClick="return popup(this, 'notes')">Execute</A>
 </button>
-<!-- *** -->
-<!-- <textarea id="input" rows="4" cols="50">   -->
-<!-- 2*2 -->
-<!-- </textarea> -->
-<!-- <br/> <button id="submitbutton" type="button">Call R</button> -->
-<!-- <pre><code id="output"></code></pre> -->
-<!-- ```{js} -->
-<!-- //because identity is in base -->
-<!-- ocpu.seturl("//public.opencpu.org/ocpu/library/base/R") -->
-<!-- //actual handler -->
-<!-- $("#submitbutton").on("click", function(){ -->
-<!--     //arguments -->
-<!--     var mysnippet = new ocpu.Snippet($("#input").val()); -->
-<!--     //disable button -->
-<!--     $("button").attr("disabled", "disabled"); -->
-<!--     //perform the request -->
-<!--     var req = ocpu.call("identity", { -->
-<!--         "x" : mysnippet -->
-<!--     }, function(session){ -->
-<!--         session.getConsole(function(outtxt){ -->
-<!--             $("#output").text(outtxt);  -->
-<!--         }); -->
-<!--     }); -->
-<!--     //if R returns an error, alert the error message -->
-<!--     req.fail(function(){ -->
-<!--         alert("Server error: " + req.responseText); -->
-<!--     });       -->
-<!--     req.always(function(){ -->
-<!--         $("button").removeAttr("disabled");     -->
-<!--     }); -->
-<!-- });     -->
-<!-- ``` -->
-<!-- *** -->
-<!-- <head>  -->
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />  -->
-<!-- <script type="text/javascript">  -->
-<!-- function myFunction()  -->
-<!-- {  -->
-<!-- document.getElementById("demo").innerHTML="New content here";  -->
-<!-- }  -->
-<!-- </script>  -->
-<!-- </head>  -->
-<!-- <body>  -->
-<!-- <h4>My Web Page</h4>   -->
-<!-- <p id="demo">A Paragraph.</p>   -->
-<!-- <button type="button" onclick="myFunction()">Execute</button>   -->
-<!-- *** -->
 <p><span style="color:white">blank</span></p>
 </div>
 </div>
